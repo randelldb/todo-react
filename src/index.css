@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
+:root {
     --rich-black: #0d1b2aff;
     --oxford-blue: #1b263bff;
     --yinmn-blue: #415a77ff;
@@ -10,46 +10,73 @@
     --platinum: #e0e1ddff;
 }
 
-body{
+*{
+    padding: 0;
+    margin:0;
+}
+
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: var(--rich-black);
+    font-family: Arial;
 }
 
-.container{
-    min-width: 50vw;
+.container {
+    min-width: 20vw;
     min-height: 50vh;
     background-color: var(--silver-lake-blue);
     border-radius: 15px;
     padding: 48px;
 }
 
-form{
+
+.add-task {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 4px;
+
     & input {
-        width: 50%;
-        height: 32px;
+        height: 40px;
+        border-radius: 15px 0 0 15px;
+        flex-grow: 1;
+        border: none;
+        outline: none;
+        padding: 4px 12px;
     }
+
+    & button {
+        width: 60px;
+        border-radius: 0 15px 15px 0;
+        border: none;
+    }
+
 }
 
-.task{
+.done {
+    background-color: green !important;
+}
+
+.task {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 48px;
+    height: 64px;
     border-radius: 15px;
     background-color: var(--platinum);
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     padding: 0 24px 0 24px;
 
-    .task-desc{
+    .task-desc {
 
     }
 
-    .task-actions{
-        & span{
+    .task-actions {
+        & span {
             padding: 0 8px 0 8px;
         }
     }
@@ -57,6 +84,6 @@ form{
 
 /* Lib */
 
-.mb-24{
+.mb-24 {
     margin-bottom: 24px;
 }
