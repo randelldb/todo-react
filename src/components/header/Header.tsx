@@ -1,7 +1,10 @@
-function Header(){
+function Header() {
     return (
-        <h1 className={'mb-24'}>React To-Do</h1>
-    )
+        <div className={"header-component mb-24"}>
+            <h1 className={""}>React To-Do</h1>
+            <h4>Edit Task</h4>
+        </div>
+    );
 }
 
 export default Header;

@@ -10,9 +10,9 @@
     --platinum: #e0e1ddff;
 }
 
-*{
+* {
     padding: 0;
-    margin:0;
+    margin: 0;
 }
 
 body {
@@ -32,6 +32,42 @@ body {
     padding: 48px;
 }
 
+label {
+    display: flex;
+    height: auto;
+    margin-bottom: 8px;
+
+}
+
+label > span {
+    display: inline-flex;
+    background-color: var(--rich-black);
+    border-radius: 12px 0 0 12px;
+    padding: 8px 24px;
+    color: var(--platinum);
+    width: 80px;
+
+}
+
+input {
+    flex-grow: 1;
+    outline: none;
+    border: 2px solid var(--rich-black);
+    border-radius: 0 12px 12px 0;
+    padding: 8px;
+}
+
+button {
+    width: 60px;
+    border: none;
+}
+
+textarea {
+    flex-grow: 1;
+    border-radius: 0 12px 12px 0;
+    border: 2px solid var(--rich-black);
+    padding: 8px;
+}
 
 .add-task {
     display: flex;
@@ -49,11 +85,8 @@ body {
     }
 
     & button {
-        width: 60px;
         border-radius: 0 15px 15px 0;
-        border: none;
     }
-
 }
 
 .done {
@@ -72,13 +105,21 @@ body {
     padding: 0 24px 0 24px;
 
     .task-desc {
-
     }
 
     .task-actions {
         & span {
             padding: 0 8px 0 8px;
         }
+    }
+
+    & .edit-task {
+        height: 30px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        padding: 4px 8px;
+        width: 100% !important;
     }
 }
 

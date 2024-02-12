@@ -3,11 +3,11 @@ import TaskList from "./components/taskList/TaskList.tsx";
 
 function App() {
   return (
-    <div className='container'>
-        <Header />
-        <TaskList />
+    <div className="app">
+      <Header />
+      <TaskList />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
