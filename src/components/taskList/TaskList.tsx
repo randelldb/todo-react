@@ -1,101 +1,73 @@
-import {useEffect, useState} from "react";
 import InputTask from "../inputTask/InputTask.tsx";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useFetchTask } from "../../hooks/useFetchTask.tsx";
+
+import { deleteTask } from "../../helpers/deleteTask.ts";
+import { toggleTask } from "../../helpers/toggleTask.ts";
+
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCheck, faX, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
+import {useState} from "react";
 
 const TaskList = () => {
-    const [tasks, setTasks] = useState([]);
+  // useFetchTask Hook
+  const { data, loading, error, fetchData } = useFetchTask();
+  const [checked, setChecked] = useState(false);
+  console.log(checked)
 
-    // when loading applicatie task will be fetched
-    useEffect(() => {
-        getTasks();
-    }, []);
+  const handleToggleTask = async (e, state: boolean) =>{
+    const {id} = e.target
 
-    const getTasks = async () => {
-        const response = await fetch("http://localhost:8080/tasks");
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        console.log(data);
-        setTasks(data);
-    };
+    // setChecked(!state)
+    setChecked((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
 
-    const deleteTask = async (taskId: string) => {
-        const response = await fetch(`http://localhost:8080/tasks/${taskId}`, {
-            method: "DELETE", // Specify the method to use
-        });
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        setTasks((currentTasks) =>
-            currentTasks.filter((task) => {
-                return task._id !== taskId;
-            }),
-        );
-    };
+    await toggleTask(id, state);
 
-    const updateTask = async (taskId: string, task: string) => {
-        console.log(taskId);
-        const response = await fetch(
-            `http://localhost:8080/tasks/update/${taskId}`,
-            {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({task: task}),
-            },
-        );
+    await fetchData();
+  };
+  const handleDelete = async (taskId: string) => {
+    await deleteTask(taskId);
+    await fetchData();
+  };
 
-        if (!response.ok) {
-            throw new Error("Network update response was not ok");
-        }
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
-        const data = await response.json();
-        console.log("Task updated successfully:", data);
-        await getTasks();
-    };
+  return (
+    <div>
+      <InputTask onTaskCreated={fetchData} />
+      <div className={"task-list"}>
+        {data.map((task: any, index: number) => (
+          <div key={index} className={`task ${task.state ? "done" : ""}`}>
+            {/*<span onClick={() => handleToggleTask(task._id, task.state)}>*/}
+            {/*    {task.state ? (<FontAwesomeIcon icon={faX}/>) : (<FontAwesomeIcon icon={faCheck}/>)}*/}
+            {/*</span>*/}
 
-    const toggleTask = async (taskId: string, state: boolean) => {
-        const response = await fetch(`http://localhost:8080/tasks/${taskId}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({state: !state}),
-        });
+            <div className={"task-collapsed"}>
+              <div className={"checkbox"}>
+                <input type="checkbox"  id={task._id} checked={task.state} onChange={(e) => handleToggleTask(e, task.state)}/>
+              </div>
 
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        await getTasks();
-        console.log("State updated successfully:", data);
-    };
+              <div className={"task-title"}>{task.task}</div>
 
-
-    return (
-        <div>
-            <InputTask onTaskCreated={getTasks}/>
-            <div className={"task-list"}>
-                {tasks.map((task: any, index) => (
-                    <div key={index}
-                         className={`task ${task.state ? "done" : ""}`}>
-                        <div className={"task-desc"}>{task.task}</div>
-                        <div className={"task-actions"}>
-              <span onClick={() => toggleTask(task._id, task.state)}>
-                {task.state ? "Uncheck" : "Check"}
+              <div className={"task-actions"}>
+              <span>
+                <Link to={`/details/${task._id}`}><FontAwesomeIcon className={"color-accent"} icon={faPenToSquare}/></Link>
               </span>
-                            <span>
-                  <Link to={`/details/${task._id}`}>Edit</Link>
-              </span>
-                            <span onClick={() => deleteTask(task._id)}>X</span>
-                        </div>
-                    </div>
-                ))}
+                <span onClick={() => handleDelete(task._id)}><FontAwesomeIcon className={"color-alert"} icon={faX}/></span>
+              </div>
             </div>
-        </div>
-    );
+
+            <div className={"task-desc"}>xxxx</div>
+
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default TaskList;

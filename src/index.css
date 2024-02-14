@@ -3,128 +3,181 @@
 @tailwind utilities;
 
 :root {
-    --rich-black: #0d1b2aff;
-    --oxford-blue: #1b263bff;
-    --yinmn-blue: #415a77ff;
-    --silver-lake-blue: #778da9ff;
-    --platinum: #e0e1ddff;
+  --dark: #222831;
+  --gray: #393E46;
+  --accent: #00ADB5;
+  --alert: #b50000;
+  --white: #EEEEEE;
 }
 
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
+h1{
+  color: var(--white);
+}
+h4{
+  color: var(--accent);
+}
+
+
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: var(--rich-black);
-    font-family: Arial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--white);
+  font-family: Arial, serif;
+}
+
+input, textarea{
+    outline: none;
 }
 
 .container {
-    min-width: 20vw;
-    min-height: 50vh;
-    background-color: var(--silver-lake-blue);
-    border-radius: 15px;
-    padding: 48px;
+  min-width: 20vw;
+  min-height: 50vh;
+  background-color: var(--dark);
+  border-radius: 15px;
+  padding: 48px;
 }
 
 label {
-    display: flex;
-    height: auto;
-    margin-bottom: 8px;
-
+  display: flex;
+  height: auto;
+  margin-bottom: 8px;
 }
 
 label > span {
-    display: inline-flex;
-    background-color: var(--rich-black);
-    border-radius: 12px 0 0 12px;
-    padding: 8px 24px;
-    color: var(--platinum);
-    width: 80px;
-
+  display: flex;
+  align-items: center;
+  background-color: var(--gray);
+  border-radius: 12px 0 0 12px;
+  padding: 8px 24px;
+  color: var(--white);
+  width: 80px;
 }
 
-input {
-    flex-grow: 1;
-    outline: none;
-    border: 2px solid var(--rich-black);
-    border-radius: 0 12px 12px 0;
-    padding: 8px;
+input[type=text] {
+  flex-grow: 1;
+  height: 40px;
+  border: 2px solid var(--gray);
+  border-radius: 0 12px 12px 0;
+  padding: 0 8px;
 }
 
 button {
-    width: 60px;
-    border: none;
+  border: none;
+}
+
+.btn {
+  padding: 12px 24px;
+  color: var(--white);
+  border-radius: 12px;
+  background-color: var(--accent);
+}
+
+.addBtn {
+  width: 60px;
+}
+
+.no-button-radius-right {
+  border-radius: 12px 0 0 12px;
+}
+
+.no-button-radius-left {
+  border-radius: 0 12px 12px 0;
 }
 
 textarea {
-    flex-grow: 1;
-    border-radius: 0 12px 12px 0;
-    border: 2px solid var(--rich-black);
-    padding: 8px;
+  flex-grow: 1;
+  border-radius: 0 12px 12px 0;
+  border: 2px solid var(--gray);
+  padding: 8px;
 }
 
 .add-task {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-bottom: 4px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 4px;
 
-    & input {
-        height: 40px;
-        border-radius: 15px 0 0 15px;
-        flex-grow: 1;
-        border: none;
-        outline: none;
-        padding: 4px 12px;
-    }
+  & input {
+    border-radius: 15px 0 0 15px;
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 4px 12px;
+  }
 
-    & button {
-        border-radius: 0 15px 15px 0;
-    }
+  & button {
+    border-radius: 0 15px 15px 0;
+  }
 }
 
 .done {
-    background-color: green !important;
+  background-color: green !important;
+}
+.task-collapeds{
+  display: flex;
+  flex-direction: row;
 }
 
 .task {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 64px;
-    border-radius: 15px;
-    background-color: var(--platinum);
-    align-items: center;
-    margin-bottom: 4px;
-    padding: 0 24px 0 24px;
+  height: 40px;
+  border-radius: 15px;
+  background-color: var(--white);
+  align-items: center;
+  margin-bottom: 4px;
+  padding: 4px 24px;
 
-    .task-desc {
-    }
+  & .checkbox{
+    flex-grow: 1;
 
-    .task-actions {
-        & span {
-            padding: 0 8px 0 8px;
-        }
+    & input{
+      display: flex;
+      align-self: center;
     }
+  }
 
-    & .edit-task {
-        height: 30px;
-        border-radius: 10px;
-        border: none;
-        outline: none;
-        padding: 4px 8px;
-        width: 100% !important;
+  .task-title {
+    flex-grow: 10;
+  }
+
+  .task-actions {
+    flex-grow: 1;
+    text-align: right;
+    justify-content: right;
+    & span {
+      padding: 0 8px 0 8px;
     }
+  }
+
+
+
 }
 
 /* Lib */
 
 .mb-24 {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.align-right {
+  display: flex;
+  justify-content: right;
+}
+
+.color-accent{
+  color: var(--accent);
+}
+
+.color-alert{
+  color: var(--alert);
+}
+
+.alert {
+  background-color: var(--alert);
 }
