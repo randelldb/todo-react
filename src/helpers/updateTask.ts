@@ -1,5 +1,4 @@
-export const updateTask = async (taskId: string , task: {task:string, state:boolean, description:string}) => {
-  console.log(task);
+export const updateTask = async (taskId: string | undefined, task: { task: string; description: string }) => {
   const response = await fetch(`http://localhost:8080/tasks/update/${taskId}`, {
     method: "PATCH",
     headers: {
@@ -13,6 +12,6 @@ export const updateTask = async (taskId: string , task: {task:string, state:bool
   }
 
   const data = await response.json();
-  console.log("Task updated successfully:", data);
-  // await fetchData();
+
+  return data
 };

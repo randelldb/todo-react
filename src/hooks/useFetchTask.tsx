@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 export const useFetchTask = () => {
   const url = "http://localhost:8080/tasks";
 
-  const [data, setData] = useState<{}>({});
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 

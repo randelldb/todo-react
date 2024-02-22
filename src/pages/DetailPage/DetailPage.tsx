@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "../../components/header/Header.tsx";
 import { updateTask } from "../../helpers/updateTask.ts";
-import * as events from "events";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 
 export const DetailPage = () => {
   const params = useParams<{ taskId: string }>();
@@ -41,12 +43,25 @@ export const DetailPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    updateTask(params.taskId, {task: task.task, description:task.description});
+    const update = updateTask(params.taskId, {task: task.task, description:task.description});
+    update.then(() => {
+      toast.success(`Task successfully updated`, {
+        position: "top-center"
+      });
+      console.log('x')
+    }).catch((error) => {
+      toast.error(`Error: ${error}`, {
+        position: "top-center"
+      });
+    });
+
   };
 
   return (
-    <div className={"detail-page"}>
-      <Header />
+  <div className={"detail-page"}>
+    <ToastContainer />
+
+    <Header />
       <form onSubmit={handleSubmit}>
         <label>
           <span>Task</span>

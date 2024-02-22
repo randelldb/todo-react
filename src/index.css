@@ -126,6 +126,7 @@ textarea {
 }
 
 .task {
+  display: flex;
   height: 40px;
   border-radius: 15px;
   background-color: var(--white);
